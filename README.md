@@ -1,3 +1,0 @@
-#Instaclone
-
-Instaclone Backend.
