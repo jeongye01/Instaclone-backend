@@ -1,18 +1,18 @@
 import client from '../../client';
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+
+import { protectedResolver } from '../users.utils';
 
 export default {
   Mutation :{
-    editProfile:async (_,{
+    editProfile:protectedResolver(async (_,{
       firstName,
       lastName,
       username,
       email,
       password:newPassword,
-    },{loggedInUser,protectResolver})=>{
-   
-      protectResolver(loggedInUser);
+      bio
+    },{loggedInUser})=>{
       let uglyPassword=null;
       if(newPassword){
         uglyPassword=await bcrypt.hash(newPassword,10);
@@ -26,18 +26,20 @@ export default {
       lastName,
       username,
       email,
+      bio,
       ...(uglyPassword&&{password:uglyPassword}),
+     
       }});
       if(updatedUser.id){
         return {
-          ok:true
-        }
+          ok:true,
+        };
       }else{
         return {
           ok:false,
-          error:"Could not update profile."
-        }
+          error:"Could not update profile.",
+        };
       }
-    },
+    }),
   }
 }
