@@ -32,6 +32,7 @@ export default{
         some:{id,}
       }}});
       return Boolean(exists);
-    }
+    },
+    photos:async ({id})=>await client.user.findUnique({where:{id}}).photos(),
   }
 }
