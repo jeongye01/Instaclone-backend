@@ -10,6 +10,10 @@ export default {
       if(!ok){
         return {ok:false,error:"Photo not found."};
       }
-    })
+      const photo =await client.photo.update({
+        where:{id},
+        data:{caption}
+      });
+    }),
   }
 }
