@@ -26,6 +26,10 @@ export default {
           connectOrCreate:processHashtags(caption)
         }
       });
+      return {
+        ok:true,
+
+      };
     }),
   }
 }

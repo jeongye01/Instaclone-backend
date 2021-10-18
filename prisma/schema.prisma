@@ -24,6 +24,7 @@ model User {
   following User[]   @relation("FollowRelation", references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  likes     Like[]
 }
 
 model Photo {
@@ -36,6 +37,7 @@ model Photo {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
+  likes Like[]
 }
 
 model HashTag {
@@ -44,4 +46,15 @@ model HashTag {
   photos    Photo[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  photo     Photo    @relation(fields: [photoId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  photoId Int
+  userId  Int
 }
